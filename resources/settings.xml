@@ -1,0 +1,3 @@
+<settings>
+   <setting id="maxVideoQuality" type="enum" label="30101" values="1080p|720p|540p|360p" default="0"/>
+</settings>
