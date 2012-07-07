@@ -83,7 +83,11 @@ def listVideos(url):
               episode="0"+episode
             title=match[1][1]
             length=match[2][1]
-            addLink("S"+season+"E"+episode+" - "+title+" ("+length+")",url,'playVideo',"")
+            if length.find("</a>")==-1:
+              length = " ("+length+")"
+            else:
+              length = ""
+            addLink("S"+season+"E"+episode+" - "+title+length,url,'playVideo',"")
         xbmcplugin.endOfDirectory(pluginhandle)
 
 def search():
