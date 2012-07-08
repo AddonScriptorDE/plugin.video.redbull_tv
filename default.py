@@ -9,6 +9,12 @@ settings = xbmcaddon.Addon(id='plugin.video.redbull_tv')
 translation = settings.getLocalizedString
 
 maxVideoQuality=settings.getSetting("maxVideoQuality")
+forceViewMode=settings.getSetting("forceViewMode")
+if forceViewMode=="true":
+  forceViewMode=True
+else:
+  forceViewMode=False
+viewMode=str(settings.getSetting("viewMode"))
 
 qual=[1080,720,540,360]
 maxVideoQuality=qual[int(maxVideoQuality)]
@@ -18,6 +24,8 @@ def index():
         addDir(translation(30003),"http://www.redbull.tv/cs/Satellite?_=1341624385783&pagename=RBWebTV%2FRBTV_P%2FRBWTVShowContainer&orderby=latest&p=%3C%25%3Dics.GetVar(%22p%22)%25%3E&start=1",'listShows',"")
         addDir(translation(30004),"",'search',"")
         xbmcplugin.endOfDirectory(pluginhandle)
+        if forceViewMode==True:
+          xbmc.executebuiltin('Container.SetViewMode('+viewMode+')')
 
 def latestVideos(url):
         content = getUrl(url)
@@ -39,6 +47,8 @@ def latestVideos(url):
             thumb="http://www.redbull.tv"+match[0].replace(" ","%20")
             addLink(title,url,'playVideo',thumb)
         xbmcplugin.endOfDirectory(pluginhandle)
+        if forceViewMode==True:
+          xbmc.executebuiltin('Container.SetViewMode('+viewMode+')')
 
 def listShows(url):
         urlMain = url
@@ -61,6 +71,8 @@ def listShows(url):
         if urlMain=="http://www.redbull.tv/cs/Satellite?_=1341624385783&pagename=RBWebTV%2FRBTV_P%2FRBWTVShowContainer&orderby=latest&p=%3C%25%3Dics.GetVar(%22p%22)%25%3E&start=1":
           addDir(translation(30001),"http://www.redbull.tv/cs/Satellite?_=1341624260257&pagename=RBWebTV%2FRBTV_P%2FRBWTVShowContainer&orderby=latest&p=%3C%25%3Dics.GetVar(%22p%22)%25%3E&start=17",'listShows',"")
         xbmcplugin.endOfDirectory(pluginhandle)
+        if forceViewMode==True:
+          xbmc.executebuiltin('Container.SetViewMode('+viewMode+')')
 
 def listVideos(url):
         xbmcplugin.addSortMethod(pluginhandle, xbmcplugin.SORT_METHOD_LABEL)
@@ -89,6 +101,8 @@ def listVideos(url):
               length = ""
             addLink("S"+season+"E"+episode+" - "+title+length,url,'playVideo',"")
         xbmcplugin.endOfDirectory(pluginhandle)
+        if forceViewMode==True:
+          xbmc.executebuiltin('Container.SetViewMode('+viewMode+')')
 
 def search():
         keyboard = xbmc.Keyboard('', translation(30004))
@@ -108,6 +122,8 @@ def search():
                 url="http://www.redbull.tv"+match[0]
                 addLink(title,url,'playVideo',"")
           xbmcplugin.endOfDirectory(pluginhandle)
+          if forceViewMode==True:
+            xbmc.executebuiltin('Container.SetViewMode('+viewMode+')')
 
 def playVideo(url):
         content = getUrl(url)

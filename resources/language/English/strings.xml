@@ -5,4 +5,6 @@
   <string id="30003">All shows</string>
   <string id="30004">Search</string>
   <string id="30101">Maximum video quality</string>
+  <string id="30102">Force ViewMode</string>
+  <string id="30103">ViewMode</string>
 </strings>
